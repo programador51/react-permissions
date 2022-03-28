@@ -18,6 +18,7 @@ function Permissions({
     margin,
     indexedPermissions,
     expandIndexed,
+    classNameContainerPermissions,
   } = usePermissions({
     level,
     permissions,
@@ -32,7 +33,7 @@ function Permissions({
         ? null
         : permissions.map((permission, i: number) => {
             return (
-              <section>
+              <section className={classNameContainerPermissions}>
                 <div
                   data-idparentPermission={
                     indexedPermissions[permission.id].parentPermission

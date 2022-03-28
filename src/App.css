@@ -29,6 +29,7 @@
   cursor: pointer;
   padding: 5px 8px 5px 1px;
   display: flex;
+  align-items: center;
 }
 
 .permission label:hover {
