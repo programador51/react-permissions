@@ -11,6 +11,7 @@ function Permissions({
   parentsExpanded = false,
   permissionsActive = [],
   showExpands = false,
+  onChange = () => {},
 }: PropsI) {
   const {
     handleExpand,
@@ -25,6 +26,7 @@ function Permissions({
     permissionsActive,
     parentPermission,
     parentsExpanded,
+    onChange,
   });
 
   return (
@@ -115,6 +117,7 @@ function Permissions({
                       key={window.crypto.randomUUID()}
                       parentPermission={permission.id}
                       showExpands={showExpands}
+                      onChange={onChange}
                     />
                   </div>
                 ) : null}

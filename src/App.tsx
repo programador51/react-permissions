@@ -15,6 +15,7 @@ function App() {
       <Permissions
         permissions={permissions}
         permissionsActive={permissionsActive}
+        onChange={(value) => console.log(value)}
         parentsExpanded
         // showExpands
       />

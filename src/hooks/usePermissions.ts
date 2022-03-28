@@ -11,6 +11,7 @@ export default function usePermissions({
   parentPermission,
   parentsExpanded,
   permissionsActive,
+  onChange = () => {},
 }: PropsI) {
   const [indexedPermissions, setIndexedPermissions] =
     useState<IndexedPermissionsI | null>(null);
@@ -63,10 +64,18 @@ export default function usePermissions({
     handleParentPermissions(parentPermission, e.target.checked);
     const checkboxes = getCheckboxes();
     const checkedPermissions = getCheckedPermissions();
-    const revokedPermissions = getRevokedPermissions();
 
-    // const permissionsGranted: string = [];
-    // const revokedPermissions: string = [];
+    const indexedNewPermissions = generateIndexedNewPermissions();
+
+    const revokedPermissions = getRevokedPermissions();
+    const providedPermissions = getProvidedPermissions();
+
+    onChange({
+      checkedPermissions: checkedPermissions,
+      grantedPermissions: providedPermissions,
+      revokedPermissions: revokedPermissions,
+    });
+
     /**
      * Handle the toggle value of the checkboxes parent/brothers of the element clicked
      * @param parentPermission - Id of the parent permission of the checked one
@@ -145,21 +154,27 @@ export default function usePermissions({
     }
 
     /**
+     * Generate an indexed object with the new permissions that will be applied.
+     *
+     * @returns {{ [key: string]: string }}
+     */
+    function generateIndexedNewPermissions(): { [key: string]: string } {
+      return checkedPermissions.reduce(
+        (indexed, permission) => ({
+          ...indexed,
+          [permission]: true,
+        }),
+        {}
+      );
+    }
+
+    /**
      * Get the revoked permissions when the user handles the input tree
      * @returns {string[]}
      */
     function getRevokedPermissions(): string[] {
-      const indexedNewPermissions: { [key: string]: string } =
-        checkedPermissions.reduce(
-          (indexed, permission) => ({
-            ...indexed,
-            [permission]: true,
-          }),
-          {}
-        );
-
       return permissionsActive.reduce(
-        (revokedPermissions: any, permission: string) => {
+        (revokedPermissions: string[], permission: string) => {
           if (indexedNewPermissions[permission] !== undefined) {
             return revokedPermissions;
           } else {
@@ -168,6 +183,29 @@ export default function usePermissions({
         },
         []
       );
+    }
+
+    /**
+     * Get the new provided permissions to that entity on the three schema
+     * @returns {string[]}
+     */
+    function getProvidedPermissions(): string[] {
+      return checkedPermissions.reduce((newChecks: string[], permission) => {
+        const indexedInitializedPermissions: { [key: string]: boolean } =
+          permissionsActive.reduce(
+            (indexed, permission) => ({
+              ...indexed,
+              [permission]: true,
+            }),
+            {}
+          );
+
+        if (indexedInitializedPermissions[permission] === undefined) {
+          return [...newChecks, permission];
+        } else {
+          return newChecks;
+        }
+      }, []);
     }
   };
 
