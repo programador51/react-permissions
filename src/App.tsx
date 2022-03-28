@@ -11,15 +11,40 @@ function App() {
   ];
 
   return (
-    <>
-      <Permissions
-        permissions={permissions}
-        permissionsActive={permissionsActive}
-        onChange={(value) => console.log(value)}
-        parentsExpanded
-        // showExpands
-      />
-    </>
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
+      <div
+        style={{
+          width: "50vw",
+          margin: "0",
+        }}
+      >
+        <Permissions
+          permissions={permissions}
+          permissionsActive={permissionsActive}
+          onChange={(value) => console.log(value)}
+          parentsExpanded
+          // showExpands
+        />
+      </div>
+      <div
+        style={{
+          width: "50vw",
+          background: "gray",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        Powered by Grupo Saiko
+      </div>
+    </div>
   );
 }
 
