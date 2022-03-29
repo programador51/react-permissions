@@ -26,7 +26,6 @@ function App() {
           permissions={permissions}
           permissionsActive={permissionsActive}
           // onChange={(value) => console.log(value)}
-          parentsExpanded
           showExpands
         />
       </div>
@@ -40,9 +39,13 @@ function App() {
           justifyContent: "center",
           color: "white",
           textAlign: "center",
+          position:"fixed",
+          right:0,
+          backgroundColor:"#60195d",
+          fontSize:"5rem"
         }}
       >
-        Powered by Grupo Saiko
+        Grupo Saiko
       </div>
     </div>
   );

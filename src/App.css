@@ -60,3 +60,11 @@
 .hidedElement {
   display: none !important;
 }
+
+.toggle::after{
+  content:"▼";
+  font-size: 0.65rem;
+}
+.upArrow::after{
+  content:"▲"
+}

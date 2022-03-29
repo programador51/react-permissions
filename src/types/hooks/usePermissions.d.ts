@@ -29,11 +29,6 @@ export interface PropsI {
   parentPermission?: null | string | number;
 
   /**
-   * If true, all the parent elements will be "expanded" to display the full three of the permissions
-   */
-  parentsExpanded?: boolean;
-
-  /**
    * All the permissions that must be "checked" once the UI finishes to render
    */
   permissionsActive: string[];

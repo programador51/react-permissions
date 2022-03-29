@@ -256,7 +256,7 @@ const permissions = [
     items: [
       {
         name: "Facturas emitidas",
-        id: "299d8d69-5525-4b2a-b824-47947008853e",
+        id: "d1fb439b-5a50-4593-9d64-a3232fa8d2db",
         items: [
           {
             name: "Agregar",

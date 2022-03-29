@@ -8,7 +8,6 @@ function Permissions({
   permissions,
   level = 0,
   parentPermission = null,
-  parentsExpanded = false,
   permissionsActive = [],
   showExpands = false,
   onChange = () => {},
@@ -25,7 +24,6 @@ function Permissions({
     permissions,
     permissionsActive,
     parentPermission,
-    parentsExpanded,
     onChange,
   });
 
@@ -52,12 +50,12 @@ function Permissions({
                 >
                   {hasChildren && showExpands ? (
                     expandIndexed[permission.id].isExpanded ? (
-                      <p onClick={(e) => handleExpand(permission.id)}>
-                        <Up />
+                      <p className="toggle upArrow" id={`toggle-${permission.id}`} onClick={(e) => handleExpand(permission.id)}>
+                        
                       </p>
                     ) : (
-                      <p onClick={(e) => handleExpand(permission.id)}>
-                        <Down />
+                      <p className="toggle upArrow" id={`toggle-${permission.id}`} onClick={(e) => handleExpand(permission.id)}>
+                        
                       </p>
                     )
                   ) : showExpands ? (
@@ -97,7 +95,6 @@ function Permissions({
                     <Permissions
                       permissions={permission.items || []}
                       permissionsActive={permissionsActive}
-                      parentsExpanded={parentsExpanded}
                       level={level + 1}
                       key={window.crypto.randomUUID()}
                       parentPermission={permission.id}

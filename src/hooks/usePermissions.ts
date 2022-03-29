@@ -9,7 +9,6 @@ export default function usePermissions({
   permissions,
   level = 0,
   parentPermission,
-  parentsExpanded,
   permissionsActive,
   onChange = () => { },
 }: PropsI) {
@@ -42,7 +41,6 @@ export default function usePermissions({
         ...indexed,
         [`${permission.id}`]: {
           parentPermission,
-          isExpanded: parentsExpanded,
           selected: permissionsActive.includes(`${permission.id}`),
           childrenPermissions:
             permission.items?.map((item: any) => item.id) || [],
@@ -216,9 +214,14 @@ export default function usePermissions({
    */
   const handleExpand = (idChildPermission: string) => {
     const childrenContainer = document.getElementById(`childrenOf-${idChildPermission}`);
-  
+    const parentContainer = document.getElementById(`toggle-${idChildPermission}`);
+
     if(childrenContainer){
       childrenContainer.classList.toggle('hidedElement');
+    }
+
+    if(parentContainer){
+      parentContainer.classList.toggle('upArrow');
     }
   };
 
