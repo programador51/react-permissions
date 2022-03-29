@@ -34,10 +34,15 @@ function Permissions({
       {!indexedPermissions
         ? null
         : permissions.map((permission, i: number) => {
+            const hasChildren =
+              expandIndexed[permission.id].childrenPermissions.length > 0
+                ? true
+                : false;
+
             return (
-              <section className={classNameContainerPermissions}>
+              <section key={window.crypto.randomUUID()} className={classNameContainerPermissions}>
                 <div
-                  data-idparentPermission={
+                  data-idparentpermission={
                     indexedPermissions[permission.id].parentPermission
                   }
                   className="permission"
@@ -45,28 +50,13 @@ function Permissions({
                     marginLeft: `${margin}px`,
                   }}
                 >
-                  {indexedPermissions[permission.id].childrenPermissions
-                    .length > 0 && showExpands ? (
+                  {hasChildren && showExpands ? (
                     expandIndexed[permission.id].isExpanded ? (
-                      <p
-                        onClick={(e) =>
-                          handleExpand(
-                            !expandIndexed[permission.id].isExpanded,
-                            permission.id
-                          )
-                        }
-                      >
+                      <p onClick={(e) => handleExpand(permission.id)}>
                         <Up />
                       </p>
                     ) : (
-                      <p
-                        onClick={(e) =>
-                          handleExpand(
-                            !expandIndexed[permission.id].isExpanded,
-                            permission.id
-                          )
-                        }
-                      >
+                      <p onClick={(e) => handleExpand(permission.id)}>
                         <Down />
                       </p>
                     )
@@ -76,12 +66,12 @@ function Permissions({
                   <label
                     key={window.crypto.randomUUID()}
                     htmlFor={`${permission.id}`}
-                    data-idparentPermission={
+                    data-idparentpermission={
                       indexedPermissions[permission.id].parentPermission
                     }
                   >
                     <input
-                      data-idparentPermission={
+                      data-idparentpermission={
                         indexedPermissions[permission.id].parentPermission
                       }
                       type="checkbox"
@@ -98,14 +88,9 @@ function Permissions({
 
                 {Object.keys(permission).includes("items") ? (
                   <div
-                    style={{
-                      display: expandIndexed[permission.id].isExpanded
-                        ? "block"
-                        : "none",
-                    }}
                     key={window.crypto.randomUUID()}
                     id={`childrenOf-${permission.id}`}
-                    data-idparentPermission={
+                    data-idparentpermission={
                       indexedPermissions[permission.id].parentPermission
                     }
                   >
@@ -122,7 +107,6 @@ function Permissions({
                   </div>
                 ) : null}
 
-                {/* <hr /> */}
               </section>
             );
           })}

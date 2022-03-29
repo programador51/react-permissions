@@ -50,6 +50,7 @@ export interface IndexedPermissionI {
   parentPermission: string;
   isExpanded: boolean;
   childrenPermissions: number[] | string[];
+  selected:boolean;
 }
 
 export interface IndexedPermissionsI {

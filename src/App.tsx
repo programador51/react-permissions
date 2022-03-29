@@ -4,10 +4,10 @@ import permissions from "./permissions";
 import "./App.css";
 
 function App() {
-  const permissionsActive = [
-    "cd89a7a9-066d-4961-afc6-0d6d190ff97b",
-    "787ef47a-8af3-40aa-b811-a230aa543151",
-    "f304c37e-daa8-456a-8f2b-5b9806622bdd",
+  const permissionsActive:string[] = [
+    "0bab85b8-2b1f-4cbb-bd51-9a699a0f1994",
+    "f00840e3-0a71-4a79-9bbf-f2df752b2c95",
+    "cd89a7a9-066d-4961-afc6-0d6d190ff97b"
   ];
 
   return (
@@ -25,9 +25,9 @@ function App() {
         <Permissions
           permissions={permissions}
           permissionsActive={permissionsActive}
-          onChange={(value) => console.log(value)}
+          // onChange={(value) => console.log(value)}
           parentsExpanded
-          // showExpands
+          showExpands
         />
       </div>
       <div
