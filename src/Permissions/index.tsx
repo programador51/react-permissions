@@ -1,6 +1,4 @@
 import React from "react";
-import Down from "../atoms/icons/Down";
-import Up from "../atoms/icons/Up";
 import usePermissions from "../hooks/usePermissions";
 import { PropsI } from "../types/hooks/usePermissions";
 
