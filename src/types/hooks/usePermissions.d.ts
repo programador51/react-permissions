@@ -1,3 +1,6 @@
+/**
+ * It's a recursive parameter, will stop until `items` props is not provided
+ */
 export interface PermissionI {
   name: string;
   id: string;
@@ -5,8 +8,19 @@ export interface PermissionI {
 }
 
 export interface onChangeI {
+  /**
+   * Ids's of the permissions that was quit according the parameter of 'permissionsActive'
+   */
   revokedPermissions: string[];
+
+  /**
+   * Id's of the new permissions that were grantted according the parameter of  'permisionsActive'
+   */
   grantedPermissions: string[];
+
+  /**
+   * Ids's of all the permissions that are active on the UI
+   */
   checkedPermissions: string[];
 }
 
@@ -38,16 +52,37 @@ export interface PropsI {
    */
   showExpands?: boolean;
 
+  /**
+   * This callback returns the following: Permission checked, retrived permissions and new granted permissions
+   */
   onChange?: (object: onChangeI) => void;
 }
 
 export interface IndexedPermissionI {
+  /**
+   * Indicates what's the parent permission that contains the current element
+   */
   parentPermission: string;
+
+  /**
+   * Indicates if the element it's expanded
+   */
   isExpanded: boolean;
+
+  /**
+   * Id's of the child permissions that has the current element
+   */
   childrenPermissions: number[] | string[];
-  selected:boolean;
+
+  /**
+   * Indicates if the permissions it's selected
+   */
+  selected: boolean;
 }
 
+/**
+ * Permissions indexed
+ */
 export interface IndexedPermissionsI {
   [key: string]: IndexedPermissionI;
 }
