@@ -18,6 +18,12 @@ export interface setPermissionsI {
 
 export interface PropsI {
 
+  collpasedIndexed?: {
+    [key: string]: boolean
+  }
+
+  handleCollapse?: (id: string, wasCollapsed: boolean) => void
+
   /**
    * Initial permissions checked for the UI
    */
@@ -45,7 +51,7 @@ export interface PropsI {
   /**
    * All the permissions that must be "checked" once the UI finishes to render
    */
-  permissionsActive: string[];
+  permissionsActive?: string[];
 
   /**
    * If true, icons will be rendered to collapse/display the nested permissions

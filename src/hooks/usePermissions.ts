@@ -13,13 +13,19 @@ export default function usePermissions({
   initialPermissions,
   setPermissions,
   onChange = () => { },
+  collpasedIndexed = {},
+  handleCollapse
 }: PropsI) {
   const [indexedPermissions, setIndexedPermissions] =
     useState<IndexedPermissionsI | null>(null);
 
-  const [expandIndexed, setExpandIndexed] = useState<IndexedPermissionsI>({});
+  const isExpanded = (idPermissions: string) => {
+    const collapsedItems = Object.keys(collpasedIndexed);
+    const isCollpased = collapsedItems.includes(`${idPermissions}`);
+    return isCollpased;
+  }
 
-  sessionStorage.setItem('checkboxesSelected', `${permissionsActive}`);
+  const [expandIndexed, setExpandIndexed] = useState<IndexedPermissionsI>({});
 
   const classNameContainerPermissions = "permissionsElements";
 
@@ -31,7 +37,7 @@ export default function usePermissions({
     permissionsSchema.forEach((permission) => {
       const idCheckbox = (document.getElementById(`${permission.id}`) as HTMLInputElement);
 
-      const isPermissionActive = permissionsActive.includes(`${permission.id}`);
+      const isPermissionActive = permissionsActive!.includes(`${permission.id}`);
 
       if (isPermissionActive) {
         idCheckbox.checked = true
@@ -46,7 +52,7 @@ export default function usePermissions({
         [`${permission.id}`]: {
           parentPermission,
           isExpanded: true,
-          selected: permissionsActive.includes(`${permission.id}`),
+          selected: true,
           childrenPermissions:
             permission.items?.map((item: any) => item.id) || [],
         },
@@ -225,14 +231,14 @@ export default function usePermissions({
    * Handle the button to expand or collapse the children/parent element
    * @param idPermission - Id of the parent that has the permission
    */
-  const handleExpand = (idPermission: string) => {
-    setExpandIndexed({
-      ...expandIndexed,
-      [idPermission]: {
-        ...expandIndexed[idPermission],
-        isExpanded: !expandIndexed[idPermission].isExpanded
-      }
-    })
+  const handleExpand = (idPermission: string, newValue: boolean) => {
+    // setExpandIndexed({
+    //   ...expandIndexed,
+    //   [idPermission]: {
+    //     ...expandIndexed[idPermission],
+    //     isExpanded: !expandIndexed[idPermission].isExpanded
+    //   }
+    // })
   };
 
   return {
@@ -242,6 +248,7 @@ export default function usePermissions({
     handleToggle,
     expandIndexed,
     classNameContainerPermissions,
-    permissionsActive
+    permissionsActive,
+    isExpanded
   };
 }

@@ -7,11 +7,12 @@ import useTreePermissions from "./hooks/useTreePermissions";
 function App() {
   const [text, setText] = useState(false);
 
-  const [permissions, setPermissions] = useTreePermissions([
-    "0bab85b8-2b1f-4cbb-bd51-9a699a0f1994",
-    "f00840e3-0a71-4a79-9bbf-f2df752b2c95",
-    "cd89a7a9-066d-4961-afc6-0d6d190ff97b",
-  ]);
+  const { permissions, setPermissionsChecked, handleCollapse } =
+    useTreePermissions([
+      "0bab85b8-2b1f-4cbb-bd51-9a699a0f1994",
+      "f00840e3-0a71-4a79-9bbf-f2df752b2c95",
+      "cd89a7a9-066d-4961-afc6-0d6d190ff97b",
+    ]);
 
   return (
     <>
@@ -31,7 +32,9 @@ function App() {
             permissionsSchema={schemaPermissions}
             permissionsActive={permissions.active}
             initialPermissions={permissions.initialActive}
-            setPermissions={setPermissions}
+            collpasedIndexed={permissions.collapsedItems}
+            setPermissions={setPermissionsChecked}
+            handleCollapse={handleCollapse}
             showExpands
           />
         </div>

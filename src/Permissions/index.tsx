@@ -11,6 +11,8 @@ function Permissions({
   onChange = () => {},
   initialPermissions = [],
   setPermissions = () => {},
+  handleCollapse = () => {},
+  collpasedIndexed = {},
 }: PropsI) {
   const {
     handleExpand,
@@ -19,6 +21,7 @@ function Permissions({
     indexedPermissions,
     expandIndexed,
     classNameContainerPermissions,
+    isExpanded,
   } = usePermissions({
     level,
     setPermissions,
@@ -27,6 +30,8 @@ function Permissions({
     parentPermission,
     onChange,
     initialPermissions,
+    handleCollapse,
+    collpasedIndexed,
   });
 
   return (
@@ -56,10 +61,12 @@ function Permissions({
                   {hasChildren && showExpands ? (
                     <p
                       className={`toggle  ${
-                        expandIndexed[permission.id].isExpanded ? "upArrow" : ""
+                        !isExpanded(permission.id) ? "upArrow" : ""
                       }`}
                       id={`toggle-${permission.id}`}
-                      onClick={(e) => handleExpand(permission.id)}
+                      onClick={(e) =>
+                        handleCollapse(permission.id, isExpanded(permission.id))
+                      }
                     ></p>
                   ) : showExpands ? (
                     <span className="none"></span>
@@ -80,10 +87,10 @@ function Permissions({
                       name={`${permission.id}`}
                       key={window.crypto.randomUUID()}
                       checked={permissionsActive.includes(`${permission.id}`)}
-                      onClick={(e) => handleToggle(e, permission, level)}
+                      onChange={(e) => handleToggle(e, permission, level)}
                     />
                     <span key={window.crypto.randomUUID()}>
-                      {permission.name} - {permission.id}
+                      {permission.name}
                     </span>
                   </label>
                 </div>
@@ -91,9 +98,7 @@ function Permissions({
                 {Object.keys(permission).includes("items") ? (
                   <div
                     style={{
-                      display: expandIndexed[permission.id].isExpanded
-                        ? "block"
-                        : "none",
+                      display: !isExpanded(permission.id) ? "block" : "none",
                     }}
                     key={window.crypto.randomUUID()}
                     id={`childrenOf-${permission.id}`}
@@ -111,6 +116,8 @@ function Permissions({
                       showExpands={showExpands}
                       setPermissions={setPermissions}
                       onChange={onChange}
+                      collpasedIndexed={collpasedIndexed}
+                      handleCollapse={handleCollapse}
                     />
                   </div>
                 ) : null}
