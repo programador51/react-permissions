@@ -11,7 +11,7 @@ export interface StateI {
     }
 }
 
-export default function useTreePermissions(activePermissions: string[]) {
+export default function useTreePermissions(activePermissions: string[] = []) {
 
     const [permissions, setPermissions] = useState<StateI>({
         initialActive: activePermissions,

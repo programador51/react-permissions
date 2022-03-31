@@ -27,7 +27,7 @@ export interface PropsI {
   /**
    * Initial permissions checked for the UI
    */
-  initialPermissions: string[];
+  initialPermissions?: string[];
 
   setPermissions: (object: setPermissionsI) => void,
 

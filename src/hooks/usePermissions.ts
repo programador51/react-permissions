@@ -10,7 +10,7 @@ export default function usePermissions({
   level = 0,
   parentPermission,
   permissionsActive,
-  initialPermissions,
+  initialPermissions = [],
   setPermissions,
   onChange = () => { },
   collpasedIndexed = {},
