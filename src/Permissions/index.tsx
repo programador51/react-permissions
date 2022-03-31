@@ -18,7 +18,6 @@ function Permissions({
     margin,
     indexedPermissions,
     expandIndexed,
-    permissionsActive: statePermissionsActive,
     classNameContainerPermissions,
   } = usePermissions({
     level,
